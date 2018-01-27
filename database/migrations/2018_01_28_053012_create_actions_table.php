@@ -14,8 +14,12 @@ class CreateActionsTable extends Migration
     public function up()
     {
         Schema::create('actions', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
+            $table->increments('id')->unsigned();
+            $table->string('note');
+            $table->integer('time_slot')->unsigned();
+            $table->integer('event_id');
+
+            $table->foreign('event_id')->references('id')->on('events');
         });
     }
 
