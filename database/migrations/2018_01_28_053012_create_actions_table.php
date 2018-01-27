@@ -17,7 +17,7 @@ class CreateActionsTable extends Migration
             $table->increments('id')->unsigned();
             $table->string('note');
             $table->integer('time_slot')->unsigned();
-            $table->integer('event_id');
+            $table->integer('event_id')->unsigned();
 
             $table->foreign('event_id')->references('id')->on('events');
         });
