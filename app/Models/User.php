@@ -13,6 +13,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string name
  * @property string email
  * @property string password
+ * @property string api_token
  */
 class User extends Authenticatable
 {
@@ -27,13 +28,16 @@ class User extends Authenticatable
     /** Name of the Admins */
     private const ADMIN = ['admin'];
 
+    /** API Token Length */
+    public const API_TOKEN_LENGTH = 16;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'password',
+        'name', 'password', 'api_token'
     ];
 
     /**

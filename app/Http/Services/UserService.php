@@ -21,6 +21,7 @@ class UserService
 
         $user->name = $name;
         $user->password = bcrypt($password);
+        $user->api_token = str_random(User::API_TOKEN_LENGTH);
 
         $user->save();
 

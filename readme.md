@@ -35,7 +35,8 @@ Content-Type: application/json
     "data": {
         "id": 1,
         "name": "admin"
-    }
+    },
+    "api_token": "QdSMiv2KOoWkVt6j"
 }
 ```
 
