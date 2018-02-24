@@ -27,7 +27,7 @@ class Tag extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'name', 'description', 'date', 'done',
+        'user_id', 'name', 'color',
     ];
 
     public function user()
