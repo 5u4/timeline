@@ -51,4 +51,9 @@ class User extends Authenticatable
     {
         $this->hasMany('App\Models\Tag', 'user_id', 'id');
     }
+
+    public function logs()
+    {
+        $this->hasMany('App\Models\Log', 'user_id', 'id');
+    }
 }
