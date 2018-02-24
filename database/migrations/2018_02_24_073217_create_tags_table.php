@@ -15,11 +15,11 @@ class CreateTagsTable extends Migration
     {
         Schema::create('tags', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id')->unsigned();
+            $table->string('username');
             $table->string('name');
             $table->string('color');
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict')->onUpdate('cascade');
+            $table->foreign('username')->references('username')->on('users')->onDelete('restrict')->onUpdate('cascade');
         });
     }
 

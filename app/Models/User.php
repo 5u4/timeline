@@ -10,7 +10,7 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @package App\Models
  *
  * @property int id
- * @property string name
+ * @property string username
  * @property string email
  * @property string password
  * @property string api_token
@@ -37,7 +37,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'password', 'api_token'
+        'username', 'password', 'api_token'
     ];
 
     /**
@@ -51,21 +51,21 @@ class User extends Authenticatable
 
     public function events()
     {
-        return $this->hasMany('App\Models\Event', 'user_id', 'id');
+        return $this->hasMany('App\Models\Event', 'username', 'username');
     }
 
     public function tags()
     {
-        $this->hasMany('App\Models\Tag', 'user_id', 'id');
+        $this->hasMany('App\Models\Tag', 'username', 'username');
     }
 
     public function logs()
     {
-        $this->hasMany('App\Models\Log', 'user_id', 'id');
+        $this->hasMany('App\Models\Log', 'username', 'username');
     }
 
     public function isAdmin()
     {
-        return in_array($this->name, User::ADMIN);
+        return in_array($this->username, User::ADMIN);
     }
 }

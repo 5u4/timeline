@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * @package App\Models
  *
  * @property int id
- * @property int user_id
+ * @property string username
  * @property string name
  * @property string color
  */
@@ -27,12 +27,12 @@ class Tag extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'name', 'color',
+        'username', 'name', 'color',
     ];
 
     public function user()
     {
-        return $this->belongsTo('App\Models\User', 'user_id', 'id');
+        return $this->belongsTo('App\Models\User', 'username', 'username');
     }
 
     public function events()

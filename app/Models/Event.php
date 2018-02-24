@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Model;
  * @package App\Models
  *
  * @property int id
- * @property int user_id
+ * @property string username
  * @property string name
  * @property mixed description
  * @property mixed date
@@ -29,12 +29,12 @@ class Event extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id', 'name', 'description', 'date', 'done',
+        'username', 'name', 'description', 'date', 'done',
     ];
 
     public function user()
     {
-        return $this->belongsTo('App\Models\User', 'user_id', 'id');
+        return $this->belongsTo('App\Models\User', 'username', 'username');
     }
 
     public function tags()

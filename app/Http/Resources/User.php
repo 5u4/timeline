@@ -6,7 +6,7 @@ use Illuminate\Http\Resources\Json\Resource;
 
 /**
  * @property int id
- * @property string name
+ * @property string username
  * @property string api_token
  */
 class User extends Resource
@@ -20,8 +20,7 @@ class User extends Resource
     public function toArray($request)
     {
         return [
-            'id' => $this->id,
-            'name' => $this->name,
+            'username' => $this->username,
         ];
     }
 

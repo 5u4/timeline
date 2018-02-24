@@ -17,6 +17,8 @@ class CreateEventTagsTable extends Migration
             $table->integer('event_id')->unsigned();
             $table->integer('tag_id')->unsigned();
 
+            $table->primary(['event_id', 'tag_id']);
+
             $table->foreign('event_id')->references('id')->on('events')->onDelete('restrict')->onUpdate('cascade');
             $table->foreign('tag_id')->references('id')->on('tags')->onDelete('restrict')->onUpdate('cascade');
         });

@@ -15,12 +15,12 @@ class CreateLogsTable extends Migration
     {
         Schema::create('logs', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->integer('user_id')->unsigned();
+            $table->string('username');
             $table->string('action');
             $table->json('data');
             $table->timestamp('timestamp');
 
-            $table->foreign('user_id')->references('id')->on('users')->onDelete('restrict')->onUpdate('cascade');
+            $table->foreign('username')->references('username')->on('users')->onDelete('restrict')->onUpdate('cascade');
         });
     }
 

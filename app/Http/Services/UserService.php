@@ -11,15 +11,15 @@ use App\Models\User;
 class UserService
 {
     /**
-     * @param string $name
+     * @param string $username
      * @param string $password
      * @return User
      */
-    public function create(string $name, string $password): User
+    public function create(string $username, string $password): User
     {
         $user = new User();
 
-        $user->name = $name;
+        $user->username = $username;
         $user->password = bcrypt($password);
         $user->api_token = str_random(User::API_TOKEN_LENGTH);
 
