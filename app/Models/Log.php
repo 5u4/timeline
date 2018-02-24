@@ -22,6 +22,9 @@ class Log extends Model
 
     public $timestamps = false;
 
+    /* Actions */
+    public const REGISTER = 'register';
+
     /**
      * The attributes that are mass assignable.
      *
