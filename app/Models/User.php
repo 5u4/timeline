@@ -24,6 +24,9 @@ class User extends Authenticatable
 
     public $timestamps = false;
 
+    /** Name of the Admins */
+    private const ADMIN = ['admin'];
+
     /**
      * The attributes that are mass assignable.
      *
@@ -55,5 +58,10 @@ class User extends Authenticatable
     public function logs()
     {
         $this->hasMany('App\Models\Log', 'user_id', 'id');
+    }
+
+    public function isAdmin()
+    {
+        return in_array($this->name, User::ADMIN);
     }
 }
