@@ -24,6 +24,7 @@ class Log extends Model
 
     /* Actions */
     public const REGISTER = 'register';
+    public const LOGIN = 'login';
 
     /**
      * The attributes that are mass assignable.

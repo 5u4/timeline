@@ -22,6 +22,7 @@ Route::group(['prefix' => '/v1'], function () {
 
     /* User */
     Route::group(['prefix' => '/users'], function () {
-        Route::post('/register', 'UserController@register'); // register
+        Route::post('/register', 'UserController@register');
+        Route::post('/login', 'UserController@login');
     });
 });

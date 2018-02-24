@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Log;
+use App\Models\{User, Log};
 use App\Http\Services\{UserService, LogService};
 use Illuminate\Http\{Request, JsonResponse, Response};
-use Illuminate\Support\Facades\{DB, Validator};
+use Illuminate\Support\Facades\{
+    Auth, DB, Validator
+};
 use App\Http\Resources\User as UserResource;
 
 class UserController extends Controller
@@ -52,5 +54,19 @@ class UserController extends Controller
         });
 
         return UserResource::make($user)->response();
+    }
+
+    public function login(Request $request): JsonResponse
+    {
+        /* Authentication */
+        if (!Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
+            $response = ['data' => ['message' => 'Name/Password does not match']];
+            return response()->json($response, Response::HTTP_UNAUTHORIZED);
+        }
+
+        /* Log */
+        $this->logService->log($request->username, Log::LOGIN);
+
+        return UserResource::make(User::where('username', $request->username)->first())->response();
     }
 }
