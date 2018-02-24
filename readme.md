@@ -20,7 +20,7 @@ Content-Type: application/json
 
 ```
 {
-	"name": "admin",
+	"username": "admin",
 	"password": "password",
 	"password_confirmation": "password"
 }
@@ -33,10 +33,9 @@ Content-Type: application/json
 ```
 {
     "data": {
-        "id": 1,
-        "name": "admin"
+        "username": "admin"
     },
-    "api_token": "QdSMiv2KOoWkVt6j"
+    "api_token": "sqj5U9Ezp03BewmZ"
 }
 ```
 
@@ -45,7 +44,7 @@ Content-Type: application/json
 ```
 {
     "data": {
-        "name": [
+        "username": [
             "The name has already been taken."
         ]
     }

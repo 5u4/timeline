@@ -34,7 +34,7 @@ class UserController extends Controller
     {
         /* Validation */
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|max:255|unique:users',
+            'username' => 'required|string|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
         ]);
 
@@ -44,9 +44,9 @@ class UserController extends Controller
 
         /* Create User and Log Action */
         $user = DB::transaction(function () use ($request) {
-            $user = $this->userService->create($request->name, $request->password);
+            $user = $this->userService->create($request->username, $request->password);
 
-            $this->logService->log($user->id, Log::REGISTER, $request);
+//            $this->logService->log($user->username, Log::REGISTER, $request);
 
             return $user;
         });

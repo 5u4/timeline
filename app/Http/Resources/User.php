@@ -5,7 +5,6 @@ namespace App\Http\Resources;
 use Illuminate\Http\Resources\Json\Resource;
 
 /**
- * @property int id
  * @property string username
  * @property string api_token
  */

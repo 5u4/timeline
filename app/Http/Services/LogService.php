@@ -18,7 +18,7 @@ class LogService
 
         $log->username = $username;
         $log->action = $action;
-        $log->data = $data;
+        $log->data = json_decode($data);
 
         $log->save();
 
