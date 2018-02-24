@@ -22,13 +22,15 @@ class User extends Authenticatable
 
     public $primaryKey = 'id';
 
+    public $timestamps = false;
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name', 'password',
     ];
 
     /**
@@ -39,4 +41,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password',
     ];
+
+    public function events()
+    {
+        return $this->hasMany('App\Models\Event', 'user_id', 'id');
+    }
 }
