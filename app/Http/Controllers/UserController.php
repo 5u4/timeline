@@ -46,7 +46,7 @@ class UserController extends Controller
         $user = DB::transaction(function () use ($request) {
             $user = $this->userService->create($request->username, $request->password);
 
-//            $this->logService->log($user->username, Log::REGISTER, $request);
+            $this->logService->log($user->username, Log::REGISTER);
 
             return $user;
         });
