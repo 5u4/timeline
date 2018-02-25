@@ -10,6 +10,8 @@
 
 ### User
 
+---
+
 #### Register
 
 **POST /api/v1/users/register**
@@ -51,6 +53,8 @@ Content-Type: application/json
 }
 ```
 
+---
+
 #### Login
 
 **POST /api/v1/users/login**
@@ -89,7 +93,13 @@ Content-Type: application/json
 }
 ```
 
+---
+
+---
+
 ### Tag
+
+---
 
 #### Index
 
@@ -111,6 +121,8 @@ Authorization: Bearer {api_token}
     ]
 }
 ```
+
+---
 
 #### Create
 
