@@ -25,4 +25,9 @@ Route::group(['prefix' => '/v1'], function () {
         Route::post('/register', 'UserController@register');
         Route::post('/login', 'UserController@login');
     });
+
+    /* Tag */
+    Route::group(['prefix' => '/tags', 'middleware' => 'auth:api'], function () {
+        Route::get('/', 'TagController@index');
+    });
 });

@@ -89,3 +89,24 @@ Content-Type: application/json
 }
 ```
 
+### Tag
+
+#### Index
+
+**GET /api/v1/tags**
+
+Content-Type: application/json
+
+##### Response
+
+```
+{
+    "data": [
+        {
+            "name": "test",
+            "color": "000000"
+        }
+    ]
+}
+```
+
