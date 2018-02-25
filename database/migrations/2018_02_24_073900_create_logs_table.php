@@ -17,7 +17,7 @@ class CreateLogsTable extends Migration
             $table->bigIncrements('id');
             $table->string('username')->index();
             $table->string('action');
-            $table->json('data');
+            $table->json('data')->nullable();
             $table->timestamp('timestamp');
 
             $table->foreign('username')->references('username')->on('users')->onDelete('restrict')->onUpdate('cascade');

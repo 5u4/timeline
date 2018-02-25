@@ -26,7 +26,12 @@ Route::group(['prefix' => '/v1'], function () {
         Route::post('/login', 'UserController@login');
     });
 
-    /* Tag */
+    /* Event */
+    Route::group(['prefix' => '/events', 'middleware' => 'auth:api'], function () {
+        Route::get('/', 'EventController@index');
+    });
+
+        /* Tag */
     Route::group(['prefix' => '/tags', 'middleware' => 'auth:api'], function () {
         Route::get('/', 'TagController@index');
         Route::post('/', 'TagController@create');

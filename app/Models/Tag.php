@@ -22,7 +22,7 @@ class Tag extends Model
     public $timestamps = false;
 
     /** Hex Color Regular Expression */
-    public const COLOR_REGEX = '^#([A-Fa-f0-9]{6}|[A-Fa-f0-9]{3})$';
+    public const COLOR_REGEX = '([A-Fa-f0-9]{6})';
 
     /**
      * The attributes that are mass assignable.

@@ -12,7 +12,7 @@ class LogService
      * @param string $data
      * @return Log
      */
-    public function log(string $username, string $action, string $data = ''): Log
+    public function log(string $username, string $action, string $data = null): Log
     {
         $log = new Log();
 

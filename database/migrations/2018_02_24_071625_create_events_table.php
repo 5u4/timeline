@@ -17,8 +17,8 @@ class CreateEventsTable extends Migration
             $table->increments('id');
             $table->string('username')->index();
             $table->string('name');
-            $table->longText('description');
-            $table->date('date');
+            $table->longText('description')->nullable();
+            $table->date('date')->nullable();
             $table->boolean('done')->default(false);
 
             $table->foreign('username')->references('username')->on('users')->onDelete('restrict')->onUpdate('cascade');

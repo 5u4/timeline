@@ -96,6 +96,36 @@ Content-Type: application/json
 ---
 
 
+### Event
+
+---
+
+#### Index
+
+**GET /api/v1/tags**
+
+Content-Type: application/json
+
+Authorization: Bearer {api_token}
+
+##### Response
+
+```
+{
+    "data": [
+        {
+            "id": 1,
+            "name": "test",
+            "description": null,
+            "date": null,
+            "done": 0
+        }
+    ]
+}
+```
+
+---
+
 
 
 

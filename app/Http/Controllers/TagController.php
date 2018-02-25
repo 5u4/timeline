@@ -100,6 +100,7 @@ class TagController extends Controller
         /* Validation */
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|alpha_dash',
+            'color' => 'required|size:6|regex:'.Tag::COLOR_REGEX
         ]);
 
         if ($validator->fails()) {
