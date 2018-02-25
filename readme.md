@@ -97,6 +97,8 @@ Content-Type: application/json
 
 Content-Type: application/json
 
+Authorization: Bearer {api_token}
+
 ##### Response
 
 ```
@@ -110,3 +112,31 @@ Content-Type: application/json
 }
 ```
 
+#### Create
+
+**POST /api/v1/tags**
+
+Content-Type: application/json
+
+Authorization: Bearer {api_token}
+
+##### Request
+
+```
+{
+	"username": "admin",
+	"name": "test",
+	"color": "FFFFFF"
+}
+```
+
+##### Response
+
+```
+{
+    "data": {
+        "name": "test",
+        "color": "FFFFFF"
+    }
+}
+```
