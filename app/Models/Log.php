@@ -28,6 +28,7 @@ class Log extends Model
 
     /* Tag Actions */
     public const CREATE_TAG = 'create_tag';
+    public const EDIT_TAG = 'edit_tag';
 
     /**
      * The attributes that are mass assignable.

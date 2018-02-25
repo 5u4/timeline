@@ -5,6 +5,7 @@ namespace App\Http\Resources;
 use Illuminate\Http\Resources\Json\Resource;
 
 /**
+ * @property int id
  * @property string name
  * @property string color
  */
@@ -19,6 +20,7 @@ class Tag extends Resource
     public function toArray($request)
     {
         return [
+            'id' => $this->id,
             'name' => $this->name,
             'color' => $this->color,
         ];

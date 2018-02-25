@@ -54,7 +54,7 @@ class TagController extends Controller
         $validator = Validator::make($request->all(), [
             'username' => 'required|string|max:255|exists:users,username',
             'name' => 'required|string|alpha_dash',
-            'color' => 'required|size:6|alpha_num'
+            'color' => 'required|size:6|regex:'.Tag::COLOR_REGEX
         ]);
 
         if ($validator->fails()) {
@@ -73,6 +73,49 @@ class TagController extends Controller
             ]);
 
             $this->logService->log($user->username, Log::CREATE_TAG, $data);
+
+            return $tag;
+        });
+
+        return TagResource::make($tag)->response();
+    }
+
+    /**
+     * @param int $id
+     * @param Request $request
+     * @return JsonResponse
+     * @throws \Exception
+     */
+    public function edit(int $id, Request $request): JsonResponse
+    {
+        /* User Validation */
+        $user = Auth::user();
+
+        $tag = Tag::find($id);
+
+        if ($user->username != $tag->username) {
+            throw new \Exception('Username does not match', Response::HTTP_BAD_REQUEST);
+        }
+
+        /* Validation */
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string|alpha_dash',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['data' => $validator->messages()], Response::HTTP_CONFLICT);
+        }
+
+        /* Edit Tag and Log Action */
+        $tag = DB::transaction(function () use ($id, $request, $user) {
+            $tag = $this->tagService->edit($id, $request->name, $request->color);
+
+            $data = json_encode([
+                'name' => $request->name,
+                'color' => $request->color,
+            ]);
+
+            $this->logService->log($user->username, Log::EDIT_TAG, $data);
 
             return $tag;
         });

@@ -28,4 +28,22 @@ class TagService
 
         return $tag;
     }
+
+    /**
+     * @param int $id
+     * @param string $name
+     * @param string $color
+     * @return Tag
+     */
+    public function edit(int $id, string $name, string $color): Tag
+    {
+        $tag = Tag::find($id);
+
+        $tag->name = $name;
+        $tag->color = $color;
+
+        $tag->save();
+
+        return $tag;
+    }
 }

@@ -117,6 +117,7 @@ Authorization: Bearer {api_token}
 {
     "data": [
         {
+            "id": 1,
             "name": "test",
             "color": "000000"
         }
@@ -149,8 +150,41 @@ Authorization: Bearer {api_token}
 ```
 {
     "data": {
+        "id": 1,
         "name": "test",
         "color": "FFFFFF"
     }
 }
 ```
+
+---
+
+#### Edit
+
+**PUT /api/v1/tags/{tag_id}**
+
+Content-Type: application/json
+
+Authorization: Bearer {api_token}
+
+##### Request
+
+```
+{
+	"name": "rename",
+	"color": "FFFFFF"
+}
+```
+
+##### Response
+
+```
+{
+    "data": {
+        "id": 1,
+        "name": "rename",
+        "color": "FFFFFF"
+    }
+}
+```
+

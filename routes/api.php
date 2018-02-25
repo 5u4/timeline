@@ -30,5 +30,6 @@ Route::group(['prefix' => '/v1'], function () {
     Route::group(['prefix' => '/tags', 'middleware' => 'auth:api'], function () {
         Route::get('/', 'TagController@index');
         Route::post('/', 'TagController@create');
+        Route::put('/{id}', 'TagController@edit');
     });
 });
