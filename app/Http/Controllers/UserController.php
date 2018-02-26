@@ -161,4 +161,31 @@ class UserController extends Controller
 
         return UserResource::make($deleted_user)->response();
     }
+
+    /**
+     * @param string $username
+     * @return JsonResponse
+     * @throws \Exception
+     */
+    public function restore(string $username): JsonResponse
+    {
+        $user = Auth::user();
+
+        if (!$user->isAdmin()) {
+            throw new \Exception('Only Admin can restore user', Response::HTTP_BAD_REQUEST);
+        }
+
+        /* Restore User and Log Action */
+        $restored_user = DB::transaction(function () use ($username, $user) {
+            $restored_user = User::onlyTrashed()->where('username', $username)->first();
+
+            $restored_user->restore();
+
+            $this->logService->log($user->username, Log::RESTORE_USER, json_encode(['username' => $username]));
+
+            return $restored_user;
+        });
+
+        return UserResource::make($restored_user)->response();
+    }
 }

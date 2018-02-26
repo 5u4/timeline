@@ -175,6 +175,27 @@ Authorization: Bearer {api_token}
 
 ---
 
+#### Restore
+
+Note: Admin Only
+
+**PUT /api/v1/users/{username}/restore**
+
+Authorization: Bearer {api_token}
+
+##### Response
+
+```
+{
+    "data": {
+        "username": "admin"
+    },
+    "api_token": "SvDAxnwYGMxIu7no"
+}
+```
+
+---
+
 ### Event
 
 ---
@@ -358,6 +379,28 @@ Authorization: Bearer {api_token}
 
 ---
 
+#### Restore
+
+**PUT /api/v1/events/{event_id}/restore**
+
+Authorization: Bearer {api_token}
+
+##### Response
+
+```
+{
+    "data": {
+        "id": 1,
+        "name": "test",
+        "description": "test event",
+        "date": "2018-02-25",
+        "done": 0
+    }
+}
+```
+
+---
+
 ### Tag
 
 ---
@@ -494,6 +537,26 @@ Authorization: Bearer {api_token}
             "timezone_type": 3,
             "timezone": "UTC"
         }
+    }
+}
+```
+
+---
+
+#### Restore
+
+**PUT /api/v1/tags/{tag_id}/restore**
+
+Authorization: Bearer {api_token}
+
+##### Response
+
+```
+{
+    "data": {
+        "id": 1,
+        "name": "test",
+        "color": "FFFFFF"
     }
 }
 ```

@@ -29,7 +29,8 @@ Route::group(['prefix' => '/v1'], function () {
         /* Authentication Required */
         Route::group(['middleware' => 'auth:api'], function () {
             Route::delete('/', 'UserController@delete');
-            Route::delete('/{username}', 'UserController@destroy');
+            Route::delete('/{username}', 'UserController@destroy'); // Admin Only
+            Route::put('/{username}/restore', 'UserController@restore'); // Admin Only
         });
     });
 
@@ -41,6 +42,7 @@ Route::group(['prefix' => '/v1'], function () {
         Route::get('/{id}/tags', 'EventController@showEventTags');
         Route::post('/{id}/tags', 'EventController@tag');
         Route::delete('/{id}', 'EventController@destroy');
+        Route::put('/{id}/restore', 'EventController@restore');
     });
 
     /* Tag */
@@ -50,6 +52,7 @@ Route::group(['prefix' => '/v1'], function () {
         Route::put('/{id}', 'TagController@edit');
         Route::get('/{id}/events', 'TagController@showTagEvents');
         Route::delete('/{id}', 'TagController@destroy');
+        Route::put('/{id}/restore', 'TagController@restore');
     });
 
     /* Log */

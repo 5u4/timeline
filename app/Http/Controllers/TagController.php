@@ -159,14 +159,40 @@ class TagController extends Controller
         }
 
         /* Delete Tag and Log Action */
-        $tag = DB::transaction(function () use ($id) {
-            $user = Auth::user();
-
+        $tag = DB::transaction(function () use ($id, $user) {
             $tag = Tag::withTrashed()->find($id);
 
             $tag->delete();
 
             $this->logService->log($user->username, Log::DELETE_TAG, json_encode(['id' => $id]));
+
+            return $tag;
+        });
+
+        return TagResource::make($tag)->response();
+    }
+
+    /**
+     * @param int $id
+     * @return JsonResponse
+     * @throws \Exception
+     */
+    public function restore(int $id): JsonResponse
+    {
+        /* User Validation */
+        $user = Auth::user();
+
+        $tag = Tag::onlyTrashed()->find($id);
+
+        if ($user->username != $tag->username) {
+            throw new \Exception('Username does not match', Response::HTTP_BAD_REQUEST);
+        }
+
+        /* Restore Tag and Log Action */
+        $tag = DB::transaction(function () use ($id, $user, $tag) {
+            $tag->restore();
+
+            $this->logService->log($user->username, Log::RESTORE_TAG, json_encode(['id' => $id]));
 
             return $tag;
         });
