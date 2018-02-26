@@ -25,6 +25,7 @@ class Log extends Model
     /* User Actions */
     public const REGISTER = 'register';
     public const LOGIN = 'login';
+    public const CHANGE_PASSWORD = 'change_password';
 
     /* Event Actions */
     public const CREATE_EVENT = 'create_event';

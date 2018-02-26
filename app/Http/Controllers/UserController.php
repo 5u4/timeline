@@ -56,6 +56,10 @@ class UserController extends Controller
         return UserResource::make($user)->response();
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function login(Request $request): JsonResponse
     {
         /* Authentication */
@@ -68,5 +72,48 @@ class UserController extends Controller
         $this->logService->log($request->username, Log::LOGIN);
 
         return UserResource::make(User::where('username', $request->username)->first())->response();
+    }
+
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
+    public function changePassword(Request $request): JsonResponse
+    {
+        /* Authentication */
+        if (!Auth::attempt(['username' => $request->username, 'password' => $request->password])) {
+            $response = ['data' => ['message' => 'Name/Password does not match']];
+            return response()->json($response, Response::HTTP_UNAUTHORIZED);
+        }
+
+        /* Validation */
+        $validator = Validator::make($request->all(), [
+            'new_password' => 'required|string|min:8|confirmed',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['data' => $validator->messages()], Response::HTTP_CONFLICT);
+        }
+
+        /* Change Password and Log Action */
+        $user = DB::transaction(function () use ($request) {
+            $user = Auth::user();
+
+            $password = bcrypt($request->new_password);
+
+            $data = [
+                'old' => $user->password,
+                'new' => $password
+            ];
+
+            $user->password = $password;
+            $user->save();
+
+            $this->logService->log($user->username, Log::CHANGE_PASSWORD, json_encode($data));
+
+            return $user;
+        });
+
+        return UserResource::make($user)->response();
     }
 }

@@ -95,6 +95,35 @@ Content-Type: application/json
 
 ---
 
+#### Change Password
+
+**PUT /api/v1/users/password**
+
+Content-Type: application/json
+
+##### Request
+
+```
+{
+	"username": "admin",
+	"password": "password",
+	"new_password": "newpassword",
+	"new_password_confirmation": "newpassword"
+}
+```
+
+##### Response
+
+```
+{
+    "data": {
+        "username": "admin"
+    },
+    "api_token": "SvDAxnwYGMxIu7no"
+}
+```
+
+---
 
 ### Event
 

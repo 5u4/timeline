@@ -20,6 +20,10 @@ class User extends Authenticatable
 
     protected $table = 'users';
 
+    public $primaryKey = 'username';
+
+    public $incrementing = false;
+
     public $timestamps = false;
 
     /** Name of the Admins */

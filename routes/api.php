@@ -24,6 +24,7 @@ Route::group(['prefix' => '/v1'], function () {
     Route::group(['prefix' => '/users'], function () {
         Route::post('/register', 'UserController@register');
         Route::post('/login', 'UserController@login');
+        Route::put('/password', 'UserController@changePassword');
     });
 
     /* Event */
