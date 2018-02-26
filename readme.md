@@ -312,3 +312,30 @@ Authorization: Bearer {api_token}
 }
 ```
 
+---
+
+#### Show Tag Events
+
+**GET /api/v1/tags/{tag_id}/events**
+
+Content-Type: application/json
+
+Authorization: Bearer {api_token}
+
+##### Response
+
+```
+{
+    "data": [
+        {
+            "id": 1,
+            "name": "alter name",
+            "description": "test event",
+            "date": "2018-02-25",
+            "done": 1
+        }
+    ]
+}
+```
+
+---

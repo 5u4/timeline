@@ -11,7 +11,9 @@ use Illuminate\Http\{
     Request, JsonResponse, Response
 };
 use Illuminate\Support\Facades\{DB, Auth, Validator};
-use App\Http\Resources\{Tag as TagResource, TagCollection};
+use App\Http\Resources\{
+    EventCollection, Tag as TagResource, TagCollection
+};
 
 
 class TagController extends Controller
@@ -117,5 +119,27 @@ class TagController extends Controller
         });
 
         return response()->json($data);
+    }
+
+    /**
+     * @param int $id
+     * @return JsonResponse
+     * @throws \Exception
+     */
+    public function showTagEvents(int $id): JsonResponse
+    {
+        /* User Validation */
+        $user = Auth::user();
+
+        $tag = Tag::find($id);
+
+        if ($user->username != $tag->username) {
+            throw new \Exception('Username does not match', Response::HTTP_BAD_REQUEST);
+        }
+
+        /* Show Tag Events */
+        $tag = Tag::find($id);
+
+        return EventCollection::make($tag->events)->response();
     }
 }

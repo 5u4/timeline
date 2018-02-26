@@ -39,5 +39,6 @@ Route::group(['prefix' => '/v1'], function () {
         Route::get('/', 'TagController@index');
         Route::post('/', 'TagController@create');
         Route::put('/{id}', 'TagController@edit');
+        Route::get('/{id}/events', 'TagController@showTagEvents');
     });
 });
