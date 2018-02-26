@@ -44,9 +44,9 @@ class EventService
      * @param string|null $description
      * @param string|null $date
      * @param string|null $done
-     * @return string
+     * @return array
      */
-    public function edit(int $id, $name, $description, $date, $done): string
+    public function edit(int $id, $name, $description, $date, $done): array
     {
         $event = Event::find($id);
 
@@ -74,6 +74,6 @@ class EventService
 
         $event->save();
 
-        return json_encode($data);
+        return $data;
     }
 }

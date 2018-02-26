@@ -99,8 +99,8 @@ class TagController extends Controller
 
         /* Validation */
         $validator = Validator::make($request->all(), [
-            'name' => 'required|string|alpha_dash',
-            'color' => 'required|size:6|regex:'.Tag::COLOR_REGEX
+            'name' => 'string|alpha_dash',
+            'color' => 'size:6|regex:'.Tag::COLOR_REGEX
         ]);
 
         if ($validator->fails()) {
@@ -108,19 +108,14 @@ class TagController extends Controller
         }
 
         /* Edit Tag and Log Action */
-        $tag = DB::transaction(function () use ($id, $request, $user) {
-            $tag = $this->tagService->edit($id, $request->name, $request->color);
+        $data = DB::transaction(function () use ($id, $request, $user) {
+            $data = $this->tagService->edit($id, $request->name, $request->color);
 
-            $data = json_encode([
-                'name' => $request->name,
-                'color' => $request->color,
-            ]);
+            $this->logService->log($user->username, Log::EDIT_TAG, json_encode($data));
 
-            $this->logService->log($user->username, Log::EDIT_TAG, $data);
-
-            return $tag;
+            return $data;
         });
 
-        return TagResource::make($tag)->response();
+        return response()->json($data);
     }
 }

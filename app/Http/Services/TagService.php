@@ -33,17 +33,26 @@ class TagService
      * @param int $id
      * @param string $name
      * @param string $color
-     * @return Tag
+     * @return array
      */
-    public function edit(int $id, string $name, string $color): Tag
+    public function edit(int $id, $name, $color): array
     {
         $tag = Tag::find($id);
 
-        $tag->name = $name;
-        $tag->color = $color;
+        $data = [];
+
+        if (isset($name)) {
+            $tag->name = $name;
+            $data['name'] = $name;
+        }
+
+        if (isset($color)) {
+            $tag->color = $color;
+            $data['color'] = $color;
+        }
 
         $tag->save();
 
-        return $tag;
+        return $data;
     }
 }

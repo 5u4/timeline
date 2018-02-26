@@ -109,11 +109,11 @@ class EventController extends Controller
         $data = DB::transaction(function () use ($id, $request, $user) {
             $data = $this->eventService->edit($id, $request->name, $request->description, $request->date, $request->done);
 
-            $this->logService->log($user->username, Log::EDIT_EVENT, $data);
+            $this->logService->log($user->username, Log::EDIT_EVENT, json_encode($data));
 
             return $data;
         });
 
-        return response()->json(json_decode($data));
+        return response()->json($data);
     }
 }

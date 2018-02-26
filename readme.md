@@ -162,6 +162,39 @@ Authorization: Bearer {api_token}
 
 ---
 
+#### Edit
+
+Note: `name`, `descripition`, `date`, `done` are optional.
+
+**PUT /api/v1/events/{event_id}**
+
+Content-Type: application/json
+
+Authorization: Bearer {api_token}
+
+##### Request
+
+```
+{
+	"name": "alter name",
+	"description": "test event",
+	"date": "2018-02-25",
+	"done": true
+}
+```
+
+##### Response
+
+```
+{
+    "name": "alter name",
+    "description": "test event",
+    "date": "2018-02-25",
+    "done": true
+}
+```
+
+---
 
 
 ### Tag
@@ -226,6 +259,8 @@ Authorization: Bearer {api_token}
 
 #### Edit
 
+Note: `name`, `color` are optional.
+
 **PUT /api/v1/tags/{tag_id}**
 
 Content-Type: application/json
@@ -246,7 +281,6 @@ Authorization: Bearer {api_token}
 ```
 {
     "data": {
-        "id": 1,
         "name": "rename",
         "color": "FFFFFF"
     }
