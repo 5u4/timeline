@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Event
@@ -11,17 +12,22 @@ use Illuminate\Database\Eloquent\Model;
  * @property int id
  * @property string username
  * @property string name
- * @property mixed description
- * @property mixed date
+ * @property string description
+ * @property string date
  * @property boolean done
+ * @property string deleted_at
  */
 class Event extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'events';
 
     public $primaryKey = 'id';
 
     public $timestamps = false;
+
+    protected $dates = ['deleted_at'];
 
     /**
      * The attributes that are mass assignable.

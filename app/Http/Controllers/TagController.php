@@ -54,7 +54,6 @@ class TagController extends Controller
     {
         /* Validation */
         $validator = Validator::make($request->all(), [
-            'username' => 'required|string|max:255|exists:users,username',
             'name' => 'required|string|alpha_dash',
             'color' => 'required|size:6|regex:'.Tag::COLOR_REGEX
         ]);
@@ -141,5 +140,37 @@ class TagController extends Controller
         $tag = Tag::find($id);
 
         return EventCollection::make($tag->events)->response();
+    }
+
+    /**
+     * @param int $id
+     * @return JsonResponse
+     * @throws \Exception
+     */
+    public function destroy(int $id): JsonResponse
+    {
+        /* User Validation */
+        $user = Auth::user();
+
+        $tag = Tag::find($id);
+
+        if ($user->username != $tag->username) {
+            throw new \Exception('Username does not match', Response::HTTP_BAD_REQUEST);
+        }
+
+        /* Delete Tag and Log Action */
+        $tag = DB::transaction(function () use ($id) {
+            $user = Auth::user();
+
+            $tag = Tag::withTrashed()->find($id);
+
+            $tag->delete();
+
+            $this->logService->log($user->username, Log::DELETE_TAG, json_encode(['id' => $id]));
+
+            return $tag;
+        });
+
+        return TagResource::make($tag)->response();
     }
 }

@@ -20,6 +20,7 @@ class CreateEventsTable extends Migration
             $table->longText('description')->nullable();
             $table->date('date')->nullable();
             $table->boolean('done')->default(false);
+            $table->softDeletes();
 
             $table->foreign('username')->references('username')->on('users')->onDelete('restrict')->onUpdate('cascade');
         });

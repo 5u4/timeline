@@ -125,6 +125,56 @@ Content-Type: application/json
 
 ---
 
+#### Self Soft Delete
+
+**DELETE /api/v1/users**
+
+Authorization: Bearer {api_token}
+
+##### Response
+
+```
+{
+    "data": {
+        "username": "admin",
+        "deleted_at": {
+            "date": "2018-02-26 06:08:19.000000",
+            "timezone_type": 3,
+            "timezone": "UTC"
+        }
+    },
+    "api_token": "SvDAxnwYGMxIu7no"
+}
+```
+
+---
+
+#### Soft Delete
+
+Note: Admin Only
+
+**DELETE /api/v1/users/{username}**
+
+Authorization: Bearer {api_token}
+
+##### Response
+
+```
+{
+    "data": {
+        "username": "admin",
+        "deleted_at": {
+            "date": "2018-02-26 06:08:19.000000",
+            "timezone_type": 3,
+            "timezone": "UTC"
+        }
+    },
+    "api_token": "SvDAxnwYGMxIu7no"
+}
+```
+
+---
+
 ### Event
 
 ---
@@ -281,6 +331,33 @@ Authorization: Bearer {api_token}
 
 ---
 
+#### Soft Delete
+
+**DELETE /api/v1/events/{event_id}**
+
+Authorization: Bearer {api_token}
+
+##### Response
+
+```
+{
+    "data": {
+        "id": 1,
+        "name": "test",
+        "description": "test event",
+        "date": "2018-02-25",
+        "done": 0,
+        "deleted_at": {
+            "date": "2018-02-26 06:30:02.000000",
+            "timezone_type": 3,
+            "timezone": "UTC"
+        }
+    }
+}
+```
+
+---
+
 ### Tag
 
 ---
@@ -321,7 +398,6 @@ Authorization: Bearer {api_token}
 
 ```
 {
-	"username": "admin",
 	"name": "test",
 	"color": "FFFFFF"
 }
@@ -394,6 +470,31 @@ Authorization: Bearer {api_token}
             "done": 1
         }
     ]
+}
+```
+
+---
+
+#### Soft Delete
+
+**DELETE /api/v1/tags/{tag_id}**
+
+Authorization: Bearer {api_token}
+
+##### Response
+
+```
+{
+    "data": {
+        "id": 1,
+        "name": "test",
+        "color": "FFFFFF",
+        "deleted_at": {
+            "date": "2018-02-26 06:25:39.000000",
+            "timezone_type": 3,
+            "timezone": "UTC"
+        }
+    }
 }
 ```
 

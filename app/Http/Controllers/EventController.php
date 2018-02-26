@@ -182,4 +182,36 @@ class EventController extends Controller
 
         return response()->json($data);
     }
+
+    /**
+     * @param int $id
+     * @return JsonResponse
+     * @throws \Exception
+     */
+    public function destroy(int $id): JsonResponse
+    {
+        /* User Validation */
+        $user = Auth::user();
+
+        $event = Event::find($id);
+
+        if ($user->username != $event->username) {
+            throw new \Exception('Username does not match', Response::HTTP_BAD_REQUEST);
+        }
+
+        /* Delete Tag and Log Action */
+        $event = DB::transaction(function () use ($id) {
+            $user = Auth::user();
+
+            $event = Event::withTrashed()->find($id);
+
+            $event->delete();
+
+            $this->logService->log($user->username, Log::DELETE_EVENT, json_encode(['id' => $id]));
+
+            return $event;
+        });
+
+        return EventResource::make($event)->response();
+    }
 }

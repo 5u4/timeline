@@ -116,4 +116,49 @@ class UserController extends Controller
 
         return UserResource::make($user)->response();
     }
+
+    /**
+     * @return JsonResponse
+     */
+    public function delete(): JsonResponse
+    {
+        $user = DB::transaction(function () {
+            $user = Auth::user();
+
+            $user->delete();
+
+            $this->logService->log($user->username, Log::DELETE_USER);
+
+            return User::withTrashed()->where('username', $user->username)->first();
+        });
+
+        return UserResource::make($user)->response();
+    }
+
+    /**
+     * @param string $username
+     * @return JsonResponse
+     * @throws \Exception
+     */
+    public function destroy(string $username): JsonResponse
+    {
+        $user = Auth::user();
+
+        if (!$user->isAdmin()) {
+            throw new \Exception('Only Admin can delete user', Response::HTTP_BAD_REQUEST);
+        }
+
+        /* Delete User and Log Action */
+        $deleted_user = DB::transaction(function () use ($username, $user) {
+            $deleted_user = User::withTrashed()->where('username', $username)->first();
+
+            $deleted_user->delete();
+
+            $this->logService->log($user->username, Log::DELETE_USER, json_encode(['username' => $username]));
+
+            return $deleted_user;
+        });
+
+        return UserResource::make($deleted_user)->response();
+    }
 }

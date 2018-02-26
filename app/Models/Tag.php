@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * Class Tag
@@ -12,14 +13,19 @@ use Illuminate\Database\Eloquent\Model;
  * @property string username
  * @property string name
  * @property string color
+ * @property string deleted_at
  */
 class Tag extends Model
 {
+    use SoftDeletes;
+
     protected $table = 'tags';
 
     public $primaryKey = 'id';
 
     public $timestamps = false;
+
+    protected $dates = ['deleted_at'];
 
     /** Hex Color Regular Expression */
     public const COLOR_REGEX = '([A-Fa-f0-9]{6})';

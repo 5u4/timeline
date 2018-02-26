@@ -18,6 +18,7 @@ class CreateTagsTable extends Migration
             $table->string('username')->index();
             $table->string('name');
             $table->string('color');
+            $table->softDeletes();
 
             $table->foreign('username')->references('username')->on('users')->onDelete('restrict')->onUpdate('cascade');
         });

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -13,10 +14,11 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @property string email
  * @property string password
  * @property string api_token
+ * @property string deleted_at
  */
 class User extends Authenticatable
 {
-    use Notifiable;
+    use Notifiable, softDeletes;
 
     protected $table = 'users';
 
@@ -26,11 +28,13 @@ class User extends Authenticatable
 
     public $timestamps = false;
 
+    protected $dates = ['deleted_at'];
+
     /** Name of the Admins */
     private const ADMIN = ['admin'];
 
     /** API Token Length */
-    public const API_TOKEN_LENGTH = 16;
+    public const API_TOKEN_LENGTH = 60;
 
     /**
      * The attributes that are mass assignable.

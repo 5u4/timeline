@@ -7,6 +7,7 @@ use Illuminate\Http\Resources\Json\Resource;
 /**
  * @property string username
  * @property string api_token
+ * @property string deleted_at
  */
 class User extends Resource
 {
@@ -20,6 +21,7 @@ class User extends Resource
     {
         return [
             'username' => $this->username,
+            'deleted_at' => $this->when($this->trashed(), $this->deleted_at),
         ];
     }
 
