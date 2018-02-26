@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Resources\UserCollection;
 use App\Models\{User, Log};
 use App\Http\Services\{UserService, LogService};
 use Illuminate\Http\{Request, JsonResponse, Response};
@@ -26,6 +27,36 @@ class UserController extends Controller
     {
         $this->userService = $userService;
         $this->logService = $logService;
+    }
+
+    /**
+     * @return JsonResponse
+     * @throws \Exception
+     */
+    public function index(): JsonResponse
+    {
+        $user = Auth::user();
+
+        if (!$user->isAdmin()) {
+            throw new \Exception('Only Admin can view users', Response::HTTP_BAD_REQUEST);
+        }
+
+        return UserCollection::make(User::all())->response();
+    }
+
+    /**
+     * @return JsonResponse
+     * @throws \Exception
+     */
+    public function indexTrashed(): JsonResponse
+    {
+        $user = Auth::user();
+
+        if (!$user->isAdmin()) {
+            throw new \Exception('Only Admin can view users', Response::HTTP_BAD_REQUEST);
+        }
+
+        return UserCollection::make(User::onlyTrashed()->get())->response();
     }
 
     /**

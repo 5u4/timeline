@@ -12,6 +12,58 @@
 
 ---
 
+#### Index
+
+Note: Admin Only
+
+**GET /api/v1/users**
+
+Authorization: Bearer {api_token}
+
+##### Response
+
+```
+{
+    "data": [
+        {
+            "username": "admin"
+        },
+        {
+            "username": "admin2"
+        }
+    ]
+}
+```
+
+---
+
+#### Index Trashed
+
+Note: Admin Only
+
+**GET /api/v1/users/trashed**
+
+Authorization: Bearer {api_token}
+
+##### Response
+
+```
+{
+    "data": [
+        {
+            "username": "admin2",
+            "deleted_at": {
+                "date": "2018-02-26 07:20:27.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            }
+        }
+    ]
+}
+```
+
+---
+
 #### Register
 
 **POST /api/v1/users/register**

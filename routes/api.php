@@ -28,6 +28,8 @@ Route::group(['prefix' => '/v1'], function () {
 
         /* Authentication Required */
         Route::group(['middleware' => 'auth:api'], function () {
+            Route::get('/', 'UserController@index'); // Admin Only
+            Route::get('/trashed', 'UserController@indexTrashed'); // Admin Only
             Route::delete('/', 'UserController@delete');
             Route::delete('/{username}', 'UserController@destroy'); // Admin Only
             Route::put('/{username}/restore', 'UserController@restore'); // Admin Only
