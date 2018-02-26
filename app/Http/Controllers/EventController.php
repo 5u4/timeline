@@ -76,4 +76,44 @@ class EventController extends Controller
 
         return EventResource::make($event)->response();
     }
+
+    /**
+     * @param int $id
+     * @param Request $request
+     * @return JsonResponse
+     * @throws \Exception
+     */
+    public function edit(int $id, Request $request): JsonResponse
+    {
+        /* User Validation */
+        $user = Auth::user();
+
+        $event = Event::find($id);
+
+        if ($user->username != $event->username) {
+            throw new \Exception('Username does not match', Response::HTTP_BAD_REQUEST);
+        }
+
+        /* Validation */
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string',
+            'description' => 'string',
+            'date' => 'date',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['data' => $validator->messages()], Response::HTTP_CONFLICT);
+        }
+
+        /* Edit Event and Log Action */
+        $data = DB::transaction(function () use ($id, $request, $user) {
+            $data = $this->eventService->edit($id, $request->name, $request->description, $request->date, $request->done);
+
+            $this->logService->log($user->username, Log::EDIT_EVENT, $data);
+
+            return $data;
+        });
+
+        return response()->json(json_decode($data));
+    }
 }

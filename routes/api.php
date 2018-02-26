@@ -30,6 +30,7 @@ Route::group(['prefix' => '/v1'], function () {
     Route::group(['prefix' => '/events', 'middleware' => 'auth:api'], function () {
         Route::get('/', 'EventController@index');
         Route::post('/', 'EventController@create');
+        Route::put('/{id}', 'EventController@edit');
     });
 
         /* Tag */
