@@ -45,6 +45,18 @@ class EventController extends Controller
     }
 
     /**
+     * @return JsonResponse
+     */
+    public function indexTrashed(): JsonResponse
+    {
+        $user = Auth::user();
+
+        $events = Event::onlyTrashed()->where('username', $user->username)->get();
+
+        return EventCollection::make($events)->response();
+    }
+
+    /**
      * @param Request $request
      * @return JsonResponse
      */

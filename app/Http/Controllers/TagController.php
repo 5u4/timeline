@@ -47,6 +47,18 @@ class TagController extends Controller
     }
 
     /**
+     * @return JsonResponse
+     */
+    public function indexTrashed(): JsonResponse
+    {
+        $user = Auth::user();
+
+        $tags = Tag::onlyTrashed()->where('username', $user->username)->get();
+
+        return TagCollection::make($tags)->response();
+    }
+
+    /**
      * @param Request $request
      * @return JsonResponse
      */

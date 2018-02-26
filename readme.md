@@ -254,7 +254,7 @@ Authorization: Bearer {api_token}
 
 #### Index
 
-**GET /api/v1/tags**
+**GET /api/v1/events**
 
 Content-Type: application/json
 
@@ -271,6 +271,37 @@ Authorization: Bearer {api_token}
             "description": null,
             "date": null,
             "done": 0
+        }
+    ]
+}
+```
+
+---
+
+#### IndexTrashed
+
+**GET /api/v1/events/trashed**
+
+Content-Type: application/json
+
+Authorization: Bearer {api_token}
+
+##### Response
+
+```
+{
+    "data": [
+        {
+            "id": 1,
+            "name": "test",
+            "description": "test event",
+            "date": "2018-02-25",
+            "done": 0,
+            "deleted_at": {
+                "date": "2018-02-26 07:26:07.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            }
         }
     ]
 }
@@ -474,6 +505,35 @@ Authorization: Bearer {api_token}
             "id": 1,
             "name": "test",
             "color": "000000"
+        }
+    ]
+}
+```
+
+---
+
+#### Index Trashed
+
+**GET /api/v1/tags/trashed**
+
+Content-Type: application/json
+
+Authorization: Bearer {api_token}
+
+##### Response
+
+```
+{
+    "data": [
+        {
+            "id": 1,
+            "name": "test",
+            "color": "FFFFFF",
+            "deleted_at": {
+                "date": "2018-02-26 07:23:44.000000",
+                "timezone_type": 3,
+                "timezone": "UTC"
+            }
         }
     ]
 }

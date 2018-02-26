@@ -39,6 +39,7 @@ Route::group(['prefix' => '/v1'], function () {
     /* Event */
     Route::group(['prefix' => '/events', 'middleware' => 'auth:api'], function () {
         Route::get('/', 'EventController@index');
+        Route::get('/trashed', 'EventController@indexTrashed');
         Route::post('/', 'EventController@create');
         Route::put('/{id}', 'EventController@edit');
         Route::get('/{id}/tags', 'EventController@showEventTags');
@@ -50,6 +51,7 @@ Route::group(['prefix' => '/v1'], function () {
     /* Tag */
     Route::group(['prefix' => '/tags', 'middleware' => 'auth:api'], function () {
         Route::get('/', 'TagController@index');
+        Route::get('/trashed', 'TagController@indexTrashed');
         Route::post('/', 'TagController@create');
         Route::put('/{id}', 'TagController@edit');
         Route::get('/{id}/events', 'TagController@showTagEvents');
