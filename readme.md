@@ -141,7 +141,7 @@ Authorization: Bearer {api_token}
 ```
 {
 	"name": "test",
-	"descripiton": "test event",
+	"description": "test event",
 	"date": "2018-02-25"
 }
 ```
@@ -153,7 +153,7 @@ Authorization: Bearer {api_token}
     "data": {
         "id": 1,
         "name": "test",
-        "description": null,
+        "description": "test event",
         "date": "2018-02-25",
         "done": null
     }
