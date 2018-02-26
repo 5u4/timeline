@@ -398,3 +398,38 @@ Authorization: Bearer {api_token}
 ```
 
 ---
+
+### Log
+
+**GET /api/v1/logs**
+
+Content-Type: application/json
+
+Authorization: Bearer {api_token}
+
+##### Response
+
+```
+{
+    "data": [
+        {
+            "id": 2,
+            "action": "login",
+            "data": null,
+            "timestamp": "2018-02-25 19:35:05"
+        },
+        {
+            "id": 1,
+            "action": "register",
+            "data": null,
+            "timestamp": "2018-02-25 19:34:43"
+        }
+    ]
+}
+```
+
+##### Action Code
+
+```
+
+```

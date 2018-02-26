@@ -25,6 +25,11 @@ Route::group(['prefix' => '/v1'], function () {
         Route::post('/register', 'UserController@register');
         Route::post('/login', 'UserController@login');
         Route::put('/password', 'UserController@changePassword');
+
+        /* Authentication Required */
+        Route::group(['middleware' => 'auth:api'], function () {
+
+        });
     });
 
     /* Event */
@@ -36,11 +41,16 @@ Route::group(['prefix' => '/v1'], function () {
         Route::post('/{id}/tags', 'EventController@tag');
     });
 
-        /* Tag */
+    /* Tag */
     Route::group(['prefix' => '/tags', 'middleware' => 'auth:api'], function () {
         Route::get('/', 'TagController@index');
         Route::post('/', 'TagController@create');
         Route::put('/{id}', 'TagController@edit');
         Route::get('/{id}/events', 'TagController@showTagEvents');
+    });
+
+    /* Log */
+    Route::group(['prefix' => '/logs', 'middleware' => 'auth:api'], function () {
+        Route::get('/', 'LogController@index');
     });
 });
