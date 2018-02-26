@@ -707,5 +707,41 @@ Authorization: Bearer {api_token}
 ##### Action Code
 
 ```
+/* User Actions */
+public const REGISTER = 'register';
+public const LOGIN = 'login';
+public const CHANGE_PASSWORD = 'change_password';
+public const DELETE_USER = 'delete_user';
+public const RESTORE_USER = 'restore_user';
 
+/* Event Actions */
+public const CREATE_EVENT = 'create_event';
+public const EDIT_EVENT = 'edit_event';
+public const TAG_EVENT = 'tag_event';
+public const DELETE_EVENT = 'delete_event';
+public const RESTORE_EVENT = 'restore_event';
+
+/* Tag Actions */
+public const CREATE_TAG = 'create_tag';
+public const EDIT_TAG = 'edit_tag';
+public const DELETE_TAG = 'delete_tag';
+public const RESTORE_TAG = 'restore_tag';
 ```
+
+---
+
+## Postman
+
+### Link
+
+https://www.getpostman.com/collections/4009956d9567c5a86092
+
+### How to use
+
+1. Download [Postman](https://www.getpostman.com/apps)
+
+2. Click `Import` in the left top corner
+
+3. Select `Import From Link` and paste the link
+
+4. `Import`
