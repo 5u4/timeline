@@ -196,6 +196,31 @@ Authorization: Bearer {api_token}
 
 ---
 
+#### Show Event Tags
+
+**GET /api/v1/events/{event_id}/tags**
+
+Content-Type: application/json
+
+Authorization: Bearer {api_token}
+
+##### Response
+
+```
+{
+    "data": [
+        {
+            "id": 1,
+            "name": "test",
+            "color": "FFFFFF"
+        }
+    ]
+}
+```
+
+---
+
+
 
 ### Tag
 

@@ -8,7 +8,9 @@ use Illuminate\Http\{Request, JsonResponse, Response};
 use Illuminate\Support\Facades\{
     Auth, DB, Validator
 };
-use App\Http\Resources\{Event as EventResource, EventCollection};
+use App\Http\Resources\{
+    Event as EventResource, EventCollection, TagCollection
+};
 
 class EventController extends Controller
 {
@@ -115,5 +117,27 @@ class EventController extends Controller
         });
 
         return response()->json($data);
+    }
+
+    /**
+     * @param int $id
+     * @return JsonResponse
+     * @throws \Exception
+     */
+    public function showEventTags(int $id): JsonResponse
+    {
+        /* User Validation */
+        $user = Auth::user();
+
+        $event = Event::find($id);
+
+        if ($user->username != $event->username) {
+            throw new \Exception('Username does not match', Response::HTTP_BAD_REQUEST);
+        }
+
+        /* Show Event Tags */
+        $event = Event::find($id);
+
+        return TagCollection::make($event->tags)->response();
     }
 }
