@@ -40,6 +40,10 @@ class EventController extends Controller
         return EventCollection::make($events)->response();
     }
 
+    /**
+     * @param Request $request
+     * @return JsonResponse
+     */
     public function create(Request $request): JsonResponse
     {
         /* Validation */
