@@ -220,7 +220,37 @@ Authorization: Bearer {api_token}
 
 ---
 
+#### Tag Event
 
+**POST /api/v1/events/{event_id}/tags**
+
+Content-Type: application/json
+
+Authorization: Bearer {api_token}
+
+##### Request
+
+```
+{
+	"event_id": 1,
+	"tag_ids": [1, 3, 4]
+}
+```
+
+##### Response
+
+```
+{
+    "event_id": 1,
+    "tag_id": [
+        1,
+        3,
+        4
+    ]
+}
+```
+
+---
 
 ### Tag
 

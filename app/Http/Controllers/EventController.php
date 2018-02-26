@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Event, Log};
+use App\Models\{
+    Event, Log, Tag
+};
 use App\Http\Services\{EventService, LogService};
 use Illuminate\Http\{Request, JsonResponse, Response};
 use Illuminate\Support\Facades\{
@@ -139,5 +141,45 @@ class EventController extends Controller
         $event = Event::find($id);
 
         return TagCollection::make($event->tags)->response();
+    }
+
+    /**
+     * @param int $id
+     * @param Request $request
+     * @return JsonResponse
+     * @throws \Exception
+     */
+    public function tag(int $id, Request $request): JsonResponse
+    {
+        /* User Validation */
+        $user = Auth::user();
+
+        $event = Event::find($id);
+
+        if ($user->username != $event->username) {
+            throw new \Exception('Username does not match', Response::HTTP_BAD_REQUEST);
+        }
+
+        /* Tag Event and Log Action */
+        $data = DB::transaction(function () use ($id, $request, $user, $event) {
+            foreach ($request->tag_ids as $tag_id) {
+                /* Tag Validation */
+                $tag = Tag::find($tag_id);
+                abort_if($tag->username != $user->username, Response::HTTP_BAD_REQUEST, 'Username does not match');
+
+                $event->tags()->attach($tag_id);
+            }
+
+            $data = [
+                'event_id' => $id,
+                'tag_id' => $request->tag_ids,
+            ];
+
+            $this->logService->log($user->username, Log::TAG_EVENT, json_encode($data));
+
+            return $data;
+        });
+
+        return response()->json($data);
     }
 }

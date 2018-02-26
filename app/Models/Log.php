@@ -29,6 +29,7 @@ class Log extends Model
     /* Event Actions */
     public const CREATE_EVENT = 'create_event';
     public const EDIT_EVENT = 'edit_event';
+    public const TAG_EVENT = 'tag_event';
 
     /* Tag Actions */
     public const CREATE_TAG = 'create_tag';

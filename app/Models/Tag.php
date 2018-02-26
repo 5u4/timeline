@@ -40,6 +40,6 @@ class Tag extends Model
 
     public function events()
     {
-        return $this->belongsToMany('App\Models\Event', 'event_tags', 'event_id', 'tag_id');
+        return $this->belongsToMany('App\Models\Event', 'event_tags', 'tag_id', 'event_id');
     }
 }
