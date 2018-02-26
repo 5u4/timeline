@@ -126,6 +126,41 @@ Authorization: Bearer {api_token}
 
 ---
 
+#### Create
+
+Note: `descripition`, `date`, `done` are optional.
+
+**POST /api/v1/events**
+
+Content-Type: application/json
+
+Authorization: Bearer {api_token}
+
+##### Request
+
+```
+{
+	"name": "test",
+	"descripiton": "test event",
+	"date": "2018-02-25"
+}
+```
+
+##### Response
+
+```
+{
+    "data": {
+        "id": 1,
+        "name": "test",
+        "description": null,
+        "date": "2018-02-25",
+        "done": null
+    }
+}
+```
+
+---
 
 
 

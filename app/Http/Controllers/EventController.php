@@ -8,7 +8,7 @@ use Illuminate\Http\{Request, JsonResponse, Response};
 use Illuminate\Support\Facades\{
     Auth, DB, Validator
 };
-use App\Http\Resources\{Event as UserResource, EventCollection};
+use App\Http\Resources\{Event as EventResource, EventCollection};
 
 class EventController extends Controller
 {
@@ -38,5 +38,38 @@ class EventController extends Controller
         $events = Event::where('username', $user->username)->get();
 
         return EventCollection::make($events)->response();
+    }
+
+    public function create(Request $request): JsonResponse
+    {
+        /* Validation */
+        $validator = Validator::make($request->all(), [
+            'name' => 'required|string',
+            'description' => 'string',
+            'date' => 'date',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json(['data' => $validator->messages()], Response::HTTP_CONFLICT);
+        }
+
+        /* Create Event and Log Action */
+        $event = DB::transaction(function () use ($request) {
+            $user = Auth::user();
+
+            $event = $this->eventService->create($user->username, $request->name, $request->description, $request->date);
+
+            $data = json_encode([
+                'name' => $request->name,
+                'description' => $request->description,
+                'date' => $request->date,
+            ]);
+
+            $this->logService->log($user->username, Log::CREATE_EVENT, $data);
+
+            return $event;
+        });
+
+        return EventResource::make($event)->response();
     }
 }
